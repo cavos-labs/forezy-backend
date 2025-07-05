@@ -19,7 +19,13 @@ export function createServer(): Express {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // Swagger docs
+  // Swagger JSON docs (debe ir antes de la UI)
+  app.get('/docs/swagger.json', (_, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+  });
+
+  // Swagger UI
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // Basic routes

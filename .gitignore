@@ -192,3 +192,4 @@ config.env.staging
 # API keys and secrets (additional protection)
 **/secrets/
 **/keys/ 
+.vercel
