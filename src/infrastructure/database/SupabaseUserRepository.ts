@@ -3,7 +3,7 @@ import { User } from '../../domain/entities/User';
 import { UserRepository } from '../../domain/repositories/UserRepository';
 
 export class SupabaseUserRepository implements UserRepository {
-  constructor(private supabase: SupabaseClient) {}
+  constructor(private supabase: SupabaseClient) { }
 
   async findByUserId(userId: string): Promise<User | null> {
     const { data, error } = await this.supabase
@@ -59,6 +59,7 @@ export class SupabaseUserRepository implements UserRepository {
       .eq('address', address)
       .maybeSingle();
 
+
     if (error) {
       throw new Error(`Error fetching wallet by address: ${error.message}`);
     }
@@ -69,12 +70,25 @@ export class SupabaseUserRepository implements UserRepository {
 
     return {
       id: data.id,
-      authUid: data.auth_uid,
+      userId: data.user_id_cavos,
       publicKey: data.public_key,
       encryptedPrivateKey: data.encripted_private_key,
       address: data.address,
       ...(data.created_at && { createdAt: new Date(data.created_at) })
     };
+  }
+
+  async deleteUserById(id: string): Promise<void> {
+    if (!id || id.trim() === '') {
+      throw new Error('User ID is required for deletion');
+    }
+    const { error } = await this.supabase
+      .from('users')
+      .delete()
+      .eq('id', id);
+    if (error) {
+      throw new Error(`Error deleting user: ${error.message}`);
+    }
   }
 }
 

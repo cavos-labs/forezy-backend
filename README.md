@@ -77,11 +77,23 @@ npm start
 ### Base Endpoints
 - `GET /` - API information and version
 - `GET /health` - Server health status
+- `GET /docs` - Swagger UI documentation
+- `GET /docs/swagger.json` - Swagger JSON specification
 
-### Wallet Management
-- `POST /v1/api/wallets/create` - Create a new wallet
+### User Management
+- `POST /v1/api/users/register` - Register a new user and deploy wallet
+- `POST /v1/api/users/login` - Login user with Cavos authentication
+- `DELETE /v1/api/users/{address}` - Delete user account
+- `GET /v1/api/users/{address}/balance` - Get user's STRK balance
+- `GET /v1/api/users/{address}/shares` - Get user's shares/bets with pagination
 
-### Example API Response
+### Market Management
+- `GET /v1/api/markets` - Get all markets
+- `GET /v1/api/markets/{id}` - Get market by ID
+
+### Example API Responses
+
+#### Base API Response
 ```json
 {
   "message": "Welcome to Forezy Backend API",
@@ -96,6 +108,20 @@ npm start
 ```bash
 npm test
 ```
+
+## 📚 API Documentation
+
+The API is fully documented using Swagger/OpenAPI. You can access the interactive documentation at:
+
+- **Swagger UI**: `http://localhost:3000/docs`
+- **Swagger JSON**: `http://localhost:3000/docs/swagger.json`
+
+The documentation includes:
+- All available endpoints with detailed descriptions
+- Request/response schemas and examples
+- Error responses and status codes
+- Authentication requirements
+- Query parameters and path variables
 
 ## 🔧 Development Tools
 

@@ -57,10 +57,10 @@ const swaggerDefinition = {
       CreateWalletRequestDto: {
         type: 'object',
         properties: {
-          auth_uid: { type: 'string' },
+          user_id: { type: 'string' },
           network: { type: 'string' }
         },
-        required: ['auth_uid']
+        required: ['user_id']
       },
       CreateWalletResponseDto: {
         type: 'object',

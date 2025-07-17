@@ -9,6 +9,7 @@ import { getAppConfig } from './config/app';
 import { createSupabaseClient } from './database/supabase';
 import { SupabaseBetRepository } from './database/SupabaseBetRepository';
 import { LoginUserUseCase } from '../application/use-cases/LoginUserUseCase';
+import { DeleteUserUseCase } from '../application/use-cases/DeleteUserUseCase';
 
 export class Container {
   private static instance: Container;
@@ -23,6 +24,7 @@ export class Container {
   private getMarketByIdUseCase!: GetMarketByIdUseCase;
   private betRepository!: SupabaseBetRepository;
   private loginUserUseCase!: import('../application/use-cases/LoginUserUseCase').LoginUserUseCase;
+  private deleteUserUseCase!: DeleteUserUseCase;
 
   private constructor() {
     try {
@@ -64,6 +66,7 @@ export class Container {
     this.getMarketsUseCase = new GetMarketsUseCase(this.marketService);
     this.getMarketByIdUseCase = new GetMarketByIdUseCase(this.marketService);
     this.loginUserUseCase = new (require('../application/use-cases/LoginUserUseCase').LoginUserUseCase)(this.cavosWalletProvider, this.userRepository);
+    this.deleteUserUseCase = new DeleteUserUseCase(this.cavosWalletProvider, this.userRepository);
     console.log('🎉 All dependencies initialized successfully');
   }
 
@@ -97,5 +100,9 @@ export class Container {
 
   public getSupabaseUserRepository(): SupabaseUserRepository {
     return this.userRepository;
+  }
+
+  public getDeleteUserUseCase(): DeleteUserUseCase {
+    return this.deleteUserUseCase;
   }
 } 

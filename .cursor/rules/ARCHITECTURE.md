@@ -82,7 +82,7 @@ src/
 // src/domain/entities/Wallet.ts
 export interface Wallet {
   id?: string;
-  authUid: string;
+  userIDCavos: string;
   publicKey: string;
   encryptedPrivateKey: string;
   address: string;
@@ -90,7 +90,7 @@ export interface Wallet {
 }
 
 export interface WalletCreationRequest {
-  authUid: string;
+  userIDCavos: string;
   network: string;
 }
 
@@ -107,7 +107,7 @@ export interface WalletCreationResponse {
 export interface WalletRepository {
   create(wallet: Wallet): Promise<Wallet>;
   findById(id: string): Promise<Wallet | null>;
-  findByAuthUid(authUid: string): Promise<Wallet | null>;
+  findByuserIDCavos(userIDCavos: string): Promise<Wallet | null>;
   // ... more methods
 }
 ```
